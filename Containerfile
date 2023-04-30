@@ -12,11 +12,11 @@ FROM $BUILD_ESSENTIAL_IMAGE:$BUILD_ESSENTIAL_VERSION AS build
 
 WORKDIR /src/gzip
 
-# https://git.savannah.gnu.org/cgit/tar.git
-ARG TAR_VERSION=1.12
+# https://git.savannah.gnu.org/cgit/gzip.git
+ARG GZIP_VERSION=1.12
 RUN set -xeu; \
     curl -#Lo gzip.tar.xz \
-        "https://ftp.gnu.org/gnu/gzip/gzip-$TAR_VERSION.tar.xz"; \
+        "https://ftp.gnu.org/gnu/gzip/gzip-$GZIP_VERSION.tar.xz"; \
     tar -xvf gzip.tar.xz --strip-components=1; \
     rm -f gzip.tar.xz
 
@@ -42,6 +42,6 @@ RUN set -xeu; \
     ./gzip --version; \
     ln -s bash sh
 
-# static tar image
+# static gzip image
 FROM static-tar
 COPY --from=build /src/gzip/bin/ /bin/
